@@ -5,6 +5,7 @@
   "author": "Danny Gershman <danny.gershman@gmail.com>",
   "description": "A bot for the BMLT slack workspace",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "hubot": "^3.1.1",
     "hubot-diagnostics": "^1.0.0",
     "hubot-encourage": "^1.0.2",
@@ -24,7 +25,8 @@
     "hubot-slack": "^4.5.4",
     "hubot-uptime": "^1.0.1",
     "hubot-victory": "^1.5.3",
-    "hubot-wttr": "0.0.1"
+    "hubot-wttr": "0.0.1",
+    "string": "^3.3.3"
   },
   "engines": {
     "node": "8.12.0",
