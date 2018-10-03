@@ -13,5 +13,6 @@
   "hubot-memes",
   "hubot-encourage",
   "hubot-victory",
-  "hubot-qr-generator"
+  "hubot-qr-generator",
+  "hubot-reload-scripts"
 ]

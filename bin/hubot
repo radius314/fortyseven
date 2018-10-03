@@ -2,7 +2,20 @@
 
 set -e
 
-npm install
+# npm install
 export PATH="node_modules/.bin:node_modules/hubot/node_modules/.bin:$PATH"
 
-exec node_modules/.bin/hubot --name "fortyseven" "$@"
+if [ "$ADAPTER" == "slack" ]; then
+  # human-friendly check for missing slack token
+  if [ -z "$HUBOT_SLACK_TOKEN" ]; then
+    echo "HUBOT_SLACK_TOKEN is missing, can't conect to slack"
+    echo "Be sure to set HUBOT_SLACK_TOKEN to the API token in process.env"
+    exit 1
+  fi
+fi
+
+exec node \
+  ${INSPECT:+--inspect=0.0.0.0:9229} \
+  ${DEBUGBRK:+--debug-brk} \
+  node_modules/.bin/coffee node_modules/.bin/hubot \
+    --name "fortyseven" "$@"

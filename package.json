@@ -24,7 +24,8 @@
     "hubot-shipit": "^0.2.1",
     "hubot-slack": "^4.5.5",
     "hubot-uptime": "^1.0.1",
-    "hubot-victory": "^1.5.3"
+    "hubot-victory": "^1.5.3",
+    "moment": "^2.22.2"
   },
   "engines": {
     "node": "8.12.0",
