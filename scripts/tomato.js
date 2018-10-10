@@ -9,7 +9,7 @@
 //
 // Commands:
 //   hubot tomato last import - returns the time of the last sync
-//   hubot what region is <area> - returns the region a given area is in
+//   what region has <area> - returns the region a given area is in
 //
 // Notes:
 // 
@@ -36,7 +36,7 @@ module.exports = robot => {
       });
   });
 
-  robot.respond(/what region has (.*)/, msg => {
+  robot.hear(/what region has (.*)/, msg => {
     requestGet(robot,
       `${tomatoBaseUrl}/main_server/client_interface/json/?switcher=GetServiceBodies`,
       res => {
