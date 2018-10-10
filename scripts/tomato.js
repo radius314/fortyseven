@@ -22,7 +22,7 @@ var utils = require('./utils.js')
 module.exports = robot => {
   var tomatoBaseUrl = 'https://tomato.na-bmlt.org';
 
-  robot.respond(/tomato last import/, msg => {
+  robot.respond(/tomato last import/i, msg => {
     utils.requestGet(robot,
       `${tomatoBaseUrl}/rest/v1/rootservers/?format=json`,
       res => {
@@ -37,7 +37,7 @@ module.exports = robot => {
       });
   });
 
-  robot.hear(/what region has (.*)/, msg => {
+  robot.hear(/what region has (.*)/i, msg => {
     utils.requestGet(robot,
       `${tomatoBaseUrl}/main_server/client_interface/json/?switcher=GetServiceBodies`,
       res => {
