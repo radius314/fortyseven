@@ -42,7 +42,7 @@ module.exports = robot => {
       res => {
         for (item of JSON.parse(res)) {
           if (item['type'] === 'AS'
-            && item['name'].trim().toLowerCase() === msg.match[1].trim().toLowerCase()) {
+            && item['name'].toLowerCase().indexOf(msg.match[1].toLowerCase()) >= 0) {
             for (let parent of JSON.parse(res)) {
               if (parent['id'] === item['parent_id']) {
                 msg.send(`🍅 says the region is ${parent['name']}.`);
