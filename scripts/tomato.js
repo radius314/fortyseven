@@ -37,16 +37,16 @@ module.exports = robot => {
       });
   });
 
-  robot.hear(/what region has (.*)/i, msg => {
+  robot.hear(/what region (has|is) (.*)/i, msg => {
     utils.requestGet(robot,
       `${tomatoBaseUrl}/main_server/client_interface/json/?switcher=GetServiceBodies`,
       res => {
         for (item of JSON.parse(res)) {
           if (item['type'] === 'AS'
-            && item['name'].toLowerCase().indexOf(msg.match[1].toLowerCase()) >= 0) {
+            && item['name'].toLowerCase().indexOf(msg.match[2].toLowerCase()) >= 0) {
             for (let parent of JSON.parse(res)) {
               if (parent['id'] === item['parent_id']) {
-                msg.send(`🍅 says the region is ${parent['name']}.`);
+                msg.send(`🍅 says there is an area called ${item['name']} in ${parent['name']}.`);
               }
             }
           }
