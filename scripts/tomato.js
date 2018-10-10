@@ -17,12 +17,13 @@
 // Author:
 //   radius314
 var moment = require('moment');
+var utils = require('./utils.js')
 
 module.exports = robot => {
   var tomatoBaseUrl = 'https://tomato.na-bmlt.org';
 
   robot.respond(/tomato last import/, msg => {
-    requestGet(robot,
+    utils.requestGet(robot,
       `${tomatoBaseUrl}/rest/v1/rootservers/?format=json`,
       res => {
         let maxTime = null;
@@ -37,7 +38,7 @@ module.exports = robot => {
   });
 
   robot.hear(/what region has (.*)/, msg => {
-    requestGet(robot,
+    utils.requestGet(robot,
       `${tomatoBaseUrl}/main_server/client_interface/json/?switcher=GetServiceBodies`,
       res => {
         for (item of JSON.parse(res)) {
@@ -54,14 +55,5 @@ module.exports = robot => {
     )
   });
 
-  var requestGet = (msg, url, cb) => {
-    msg
-      .http(url)
-      .headers({
-        'User-Agent' : '+fortyseven'
-      })
-      .get()((err, res, body) => {
-        cb(body);
-      });
-  };
+
 };
