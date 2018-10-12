@@ -10,7 +10,7 @@
 // Commands:
 //   hubot tomato last import - returns the time of the last sync
 //   what region has <area> - returns the region a given area is in
-//   meetings in tomato - returns the number of meetings in tomato.
+//   hubot meetings in tomato - returns the number of meetings in tomato.
 //
 // Notes:
 // 
@@ -66,7 +66,7 @@ module.exports = robot => {
       `${tomatoBaseUrl}/rest/v1/meetings/?format=json`,
       res => {
         tomatoMeetings = JSON.parse(res);
-        meetingCount = tomatoMeetings['count'];
+        meetingCount = tomatoMeetings['count'].toLocaleString();
         msg.send(`There are ${meetingCount} meetings in 🍅`);
       });
   });
