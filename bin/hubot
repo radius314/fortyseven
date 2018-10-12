@@ -18,4 +18,4 @@ exec node \
   ${INSPECT:+--inspect=0.0.0.0:9229} \
   ${DEBUGBRK:+--debug-brk} \
   node_modules/.bin/coffee node_modules/.bin/hubot \
-    --name "fortyseven" "$@"
+    --name "47" "$@"
