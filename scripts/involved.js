@@ -17,13 +17,14 @@
 //   radius314
 let utils = require('./utils.js');
 let reposList = [
+  "jbraswell/tomato",
+  "littlegreenviper/bmlt-root-server",
   "radius314/bread",
   "radius314/crouton",
+  "radius314/fortyseven",
   "radius314/lettuce",
   "radius314/yap",
   "radius314/yap-fbmessenger-bot",
-  "littlegreenviper/bmlt-root-server",
-  "jbraswell/tomato"
 ];
 
 module.exports = robot => {
