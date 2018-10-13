@@ -62,12 +62,15 @@ module.exports = robot => {
   });
 
   robot.respond(/meetings in tomato/i, msg => {
+    const currentWorldWideCount = 70065;
+    msg.send(`Hold on a moment, I'm asking 🍅...`)
     utils.requestGet(robot,
       `${tomatoBaseUrl}/rest/v1/meetings/?format=json`,
       res => {
         tomatoMeetings = JSON.parse(res);
         meetingCount = tomatoMeetings['count'].toLocaleString();
-        msg.send(`There are ${meetingCount} meetings in 🍅`);
+        coverageMetric = Math.floor((tomatoMeetings['count'] / currentWorldWideCount) * 100);
+        msg.send(`There are ${meetingCount} meetings in 🍅, which is ${coverageMetric}% of the ${currentWorldWideCount.toLocaleString()} meetings in the world.`);
       });
   });
 };
