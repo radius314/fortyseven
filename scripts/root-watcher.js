@@ -20,7 +20,7 @@ var cron = require('cron');
 
 module.exports = robot => {
   new cron.CronJob({
-    cronTime: '00 * * * * *',
+    cronTime: '00 30 * * * *',
     onTick: () => {
       sendRootStatus(robot, res => {
         if (res.length > 0) {
