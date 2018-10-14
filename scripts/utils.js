@@ -5,6 +5,6 @@ exports.requestGet = (msg, url, cb) => {
       'User-Agent': '+fortyseven'
     })
     .get()((err, res, body) => {
-      cb(body);
+      cb(body, err);
     });
 };
