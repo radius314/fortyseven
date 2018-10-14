@@ -20,11 +20,11 @@ var cron = require('cron');
 
 module.exports = robot => {
   new cron.CronJob({
-    cronTime: '00 30 * * * *',
+    cronTime: '00 15 * * * *', // checks every 15 mins
     onTick: () => {
       sendRootStatus(robot, res => {
         if (res.length > 0) {
-          robot.messageRoom("root-status", res.join("\n"));
+          robot.messageRoom("general", res.join("\n"));
         }
       });
     },
