@@ -24,7 +24,7 @@ module.exports = robot => {
     onTick: () => {
       sendRootStatus(robot, res => {
         if (res.length > 0) {
-          robot.messageRoom("general", res.join("\n"));
+          robot.messageRoom("root-status", res.join("\n"));
         }
       });
     },
