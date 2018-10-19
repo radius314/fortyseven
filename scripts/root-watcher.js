@@ -37,6 +37,13 @@ module.exports = robot => {
       msg.send(res.length > 0 ? res.join("\n") : `All roots are responding.`);
     });
   });
+
+  robot.hear(/how many roots/i, msg => {
+    utils.requestGet(msg, "https://raw.githubusercontent.com/LittleGreenViper/BMLTTally/master/rootServerList.json", raw => {
+      let roots = JSON.parse(raw);
+      msg.send(`There are currently ${roots.length} roots.`);
+    });
+  });
 };
 
 function sendRootStatus(msg, cb) {

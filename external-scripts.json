@@ -14,5 +14,6 @@
   "hubot-encourage",
   "hubot-victory",
   "hubot-qr-generator",
-  "hubot-reload-scripts"
+  "hubot-reload-scripts",
+  "hubot-timezone-converter"
 ]
