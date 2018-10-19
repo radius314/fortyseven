@@ -38,7 +38,7 @@ module.exports = robot => {
     });
   });
 
-  robot.hear(/how many roots/i, msg => {
+  robot.hear(/how many roots.*/i, msg => {
     utils.requestGet(msg, "https://raw.githubusercontent.com/LittleGreenViper/BMLTTally/master/rootServerList.json", raw => {
       let roots = JSON.parse(raw);
       msg.send(`There are currently ${roots.length} roots.`);
