@@ -20,6 +20,8 @@ let reposList = [
   "jbraswell/tomato",
   "littlegreenviper/bmlt-root-server",
   "littlegreenviper/bmlt-wp",
+  "pjaudiomv/bmlt-portal",
+  "pjaudiomv/list-locations-bmlt",
   "radius314/bread",
   "radius314/crouton",
   "radius314/fortyseven",
