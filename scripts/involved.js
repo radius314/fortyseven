@@ -42,7 +42,7 @@ module.exports = robot => {
         github.get(`repos/${repo}/issues`, (issues) => {
           for (issue of issues) {
             if (hasLabels(issue['labels'], "help wanted")) {
-              response.push(`${issue['title']}: ${issue['html_url']} ${issue['assignee'] != null ? "Assignee: [" + issue['assignee']['login'] + "]" : ""}`);
+              response.push(`${issue['title']}: ${issue['html_url']} *[${issue['assignee'] != null ? issue['assignee']['login']: ""}]*`);
             }
           }
 
