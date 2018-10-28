@@ -16,58 +16,115 @@
 // Author:
 //   radius314
 let utils = require('./utils.js');
-var cron = require('cron');
+let cron = require('cron');
+const rootListUrl = "https://raw.githubusercontent.com/LittleGreenViper/BMLTTally/master/rootServerList.json";
 
 module.exports = robot => {
   new cron.CronJob({
-    cronTime: '00 15 * * * *', // checks every 15 mins
+    cronTime: '00 45 * * * *', // checks every 15 mins
     onTick: () => {
-      sendRootStatus(robot, res => {
-        if (res.length > 0) {
-          robot.messageRoom("root-status", res.join("\n"));
-        }
-      });
+      processMonitors(robot);
     },
     start: true
   });
 
-  robot.hear(/check the roots/i, msg => {
-    msg.send("I'm checking the list of known roots...");
-    sendRootStatus(msg, res => {
-      msg.send(res.length > 0 ? res.join("\n") : `All roots are responding.`);
-    });
-  });
-
   robot.hear(/how many roots.*/i, msg => {
-    utils.requestGet(msg, "https://raw.githubusercontent.com/LittleGreenViper/BMLTTally/master/rootServerList.json", raw => {
+    utils.requestGet(msg, `${rootListUrl}`, raw => {
       let roots = JSON.parse(raw);
       msg.send(`There are currently ${roots.length} roots.`);
     });
   });
+
+  robot.respond(/show active monitors.*/i, msg => {
+    getCurrentMonitors(msg);
+  });
+
+  robot.respond(/process monitors.*/i, msg => {
+    processMonitors(msg);
+  });
 };
 
-function sendRootStatus(msg, cb) {
-  utils.requestGet(msg, "https://raw.githubusercontent.com/LittleGreenViper/BMLTTally/master/rootServerList.json", raw => {
-    let roots = JSON.parse(raw);
-    let response = [];
-    Promise.all(roots.map(r => {
-      return new Promise((resolve, reject) => {
-        utils.requestGet(msg, `${r['rootURL']}/client_interface/json/?switcher=GetServerInfo`, (res, err) => {
-          try {
-            if (err !== null) throw new Error(err);
-            let serverInfo = JSON.parse(res);
-            if (serverInfo.length !== 1 || serverInfo[0]['version'] === "") {
-              throw new Error("serverInfo is not in the expected format");
-            }
-          } catch (error) {
-            response.push(`${r['name']} (${r['rootURL']}) has an issue.`);
-          } finally {
-            resolve();
+function processMonitors(msg) {
+  getCurrentMonitors(msg, resMonitors => {
+    let monitors = JSON.parse(resMonitors)['monitors'];
+    utils.requestGet(msg, `${rootListUrl}`, resRoots => {
+      let roots = JSON.parse(resRoots);
+      if (monitors.length > 0) {
+        for (let monitor of monitors) {
+          if (roots.hasItem('rootURL'), monitor['url']) {
+            roots.removeItem('rootURL', monitor['url'])
+          } else {
+            removeMonitor(msg, monitor['id']);
           }
-        });
-      })
-    })).then(() => {
-      cb(response);
+        }
+      }
+
+      for (let root of roots) {
+        addMonitor(msg, root['name'], root['rootURL'], () => {})
+      }
     });
   });
+}
+
+Array.prototype.hasItem = (objName, url) => {
+  for (let x = 0; x < this.length; x++) {
+    if (objName[x][objName] === url) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+Array.prototype.removeItem = (objName, url) => {
+  for (let x = 0; x < this.length; x++) {
+    if (objName[x][objName] === url) {
+      this.splice(x, 1);
+    }
+  }
+};
+
+function getCurrentMonitors(msg, cb) {
+  uptimeRobotApiRequest(msg, "getMonitors", cb);
+}
+
+function addMonitor(msg, friendly_name, url, cb) {
+  uptimeRobotApiRequest(
+    msg,
+    "newMonitor",
+    {
+      "type": 1,
+      "friendly_name": friendly_name,
+      "url": url
+    },
+    cb
+  );
+}
+
+function removeMonitor(msg, id, cb) {
+  uptimeRobotApiRequest(
+    msg,
+    "deleteMonitor",
+    {
+      "id": id
+    },
+    cb
+  );
+}
+
+
+function uptimeRobotApiRequest(msg, uptimeRobotMethod, payload, cb) {
+  let data = {
+    ...{
+      "api_key": process.env["HUBOT_UPTIMEROBOT_APIKEY"],
+      "format": "json"
+    },
+    ...payload
+  };
+  utils.requestPost(
+    msg,
+    `https://api.uptimerobot.com/v2/${uptimeRobotMethod}`,
+    data,
+    cb !== null ? cb : () => void 0
+  );
 }
