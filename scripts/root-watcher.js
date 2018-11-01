@@ -5,7 +5,8 @@
 //
 //
 // Configuration:
-//
+//  HUBOT_UPTIMEROBOT_APIKEY
+//  HUBOT_UPTIMEROBOT_ALERTCONTACTID
 //
 // Commands:
 //
@@ -51,7 +52,7 @@ function processMonitors(msg) {
       let roots = JSON.parse(resRoots);
       if (monitors.length > 0) {
         for (let monitor of monitors) {
-          if (roots.hasItem('rootURL'), monitor['url']) {
+          if (roots.hasItem('rootURL', monitor['url'])) {
             roots.removeItem('rootURL', monitor['url'])
           } else {
             removeMonitor(msg, monitor['id']);
@@ -95,7 +96,8 @@ function addMonitor(msg, friendly_name, url, cb) {
     {
       "type": 1,
       "friendly_name": friendly_name,
-      "url": url
+      "url": url,
+      "alert_contacts": process.env["HUBOT_UPTIMEROBOT_ALERTCONTACTID"]
     },
     cb
   );
