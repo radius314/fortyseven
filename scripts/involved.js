@@ -26,6 +26,7 @@ let reposList = [
   "radius314/crouton",
   "radius314/fortyseven",
   "radius314/lettuce",
+  "radius314/sdle",
   "radius314/yap",
   "radius314/yap-fbmessenger-bot",
 ];
