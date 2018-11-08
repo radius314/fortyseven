@@ -44,7 +44,7 @@ module.exports = robot => {
           for (issue of issues) {
             if (hasLabels(issue['labels'], "help wanted") || hasLabels(issue['labels'], "needs qa")) {
               if (issue['assignee'] == null) {
-                response.push(`${issue['title']}: ${issue['html_url']} _${issues['labels']}_`);
+                response.push(`${issue['title']}: ${issue['html_url']} _${issue['labels'].map(value => value['name']).join(",")}_`);
               }
             }
           }
