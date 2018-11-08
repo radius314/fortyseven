@@ -42,8 +42,10 @@ module.exports = robot => {
       return new Promise((resolve, reject) => {
         github.get(`repos/${repo}/issues`, (issues) => {
           for (issue of issues) {
-            if (hasLabels(issue['labels'], "help wanted")) {
-              response.push(`${issue['title']}: ${issue['html_url']} *[${issue['assignee'] != null ? issue['assignee']['login']: ""}]*`);
+            if (hasLabels(issue['labels'], "help wanted") || hasLabels(issue['labels'], "needs qa")) {
+              if (issue['assignee'] == null) {
+                response.push(`${issue['title']}: ${issue['html_url']} _${issues['labels']}_`);
+              }
             }
           }
 
@@ -53,7 +55,7 @@ module.exports = robot => {
     })).then(() => {
       msg.send(response.length > 0 ? response.join("\n") : notFoundResponse);
     });
-  })
+  });
 };
 
 function hasLabels(labels, name) {
