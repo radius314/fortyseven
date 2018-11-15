@@ -17,18 +17,18 @@
 //   radius314
 let utils = require('./utils.js');
 let reposList = [
-  "jbraswell/tomato",
+  "bmlt-enabled/tomato",
   "littlegreenviper/bmlt-root-server",
   "littlegreenviper/bmlt-wp",
-  "pjaudiomv/bmlt-portal",
-  "pjaudiomv/list-locations-bmlt",
-  "radius314/bread",
-  "radius314/crouton",
-  "radius314/fortyseven",
-  "radius314/lettuce",
-  "radius314/sdle",
-  "radius314/yap",
-  "radius314/yap-fbmessenger-bot",
+  "bmlt-enabled/bmlt-portal",
+  "bmlt-enabled/list-locations-bmlt",
+  "bmlt-enabled/bread",
+  "bmlt-enabled/crouton",
+  "bmlt-enabled/fortyseven",
+  "bmlt-enabled/lettuce",
+  "bmlt-enabled/sdle",
+  "bmlt-enabled/yap",
+  "bmlt-enabled/yap-fbmessenger-bot",
 ];
 
 module.exports = robot => {
