@@ -19,7 +19,7 @@ let utils = require('./utils.js');
 let reposList = [
   "bmlt-enabled/tomato",
   "bmlt-enabled/bmlt-root-server",
-  "bmlt-enabled/bmlt-wp",
+  "bmlt-enabled/bmlt-wordpress-satellite-plugin",
   "bmlt-enabled/bmlt-portal",
   "bmlt-enabled/list-locations-bmlt",
   "bmlt-enabled/bread",
