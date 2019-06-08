@@ -28,7 +28,7 @@ let reposList = [
   "bmlt-enabled/lettuce",
   "bmlt-enabled/sdle",
   "bmlt-enabled/yap",
-  "bmlt-enabled/yap-fbmessenger-bot",
+  "bmlt-enabled/yap-bots",
 ];
 
 module.exports = robot => {
