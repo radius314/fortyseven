@@ -24,7 +24,7 @@
     "hubot-rules": "^1.0.0",
     "hubot-scripts": "^2.17.2",
     "hubot-shipit": "^0.2.1",
-    "hubot-slack": "^4.5.5",
+    "hubot-slack": "^4.7.1",
     "hubot-timezone-converter": "^3.2.0",
     "hubot-uptime": "^1.0.1",
     "hubot-victory": "^1.5.3",
