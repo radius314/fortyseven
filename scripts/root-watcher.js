@@ -18,7 +18,7 @@
 //   radius314
 let utils = require('./utils.js');
 let cron = require('cron');
-const rootListUrl = "https://raw.githubusercontent.com/LittleGreenViper/BMLTTally/master/rootServerList.json";
+const rootListUrl = "https://raw.githubusercontent.com/bmlt-enabled/tomato/master/rootServerList.json";
 
 module.exports = robot => {
   new cron.CronJob({
