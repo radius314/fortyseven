@@ -62,7 +62,7 @@ module.exports = robot => {
   });
 
   robot.respond(/meetings in tomato/i, msg => {
-    const currentWorldWideCount = 70065; // As of NAWS News June 2018
+    const currentWorldWideCount = 76075; // As of the regional map April 2020
     msg.send(`Hold on a moment, I'm asking 🍅...`)
     utils.requestGet(robot,
       `${tomatoBaseUrl}/rest/v1/meetings/?format=json`,
