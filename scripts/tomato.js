@@ -13,15 +13,50 @@
 //   hubot meetings in tomato - returns the number of meetings in tomato.
 //
 // Notes:
-// 
+//
 //
 // Author:
 //   radius314
 var moment = require('moment');
+let cron = require('cron');
 var utils = require('./utils.js')
 
 module.exports = robot => {
-  var tomatoBaseUrl = 'https://tomato.na-bmlt.org';
+  var tomatoBaseUrl = 'https://tomato.bmltenabled.org';
+
+  function captureAndWriteStats() {
+    console.log('captured status')
+    utils.requestGet(robot,
+      `${tomatoBaseUrl}/rest/v1/servicebodies/?format=json`,
+      res => {
+        let currentData = robot.brain.get('tomatoStats');
+        if (currentData === null) currentData = [];
+        currentData.push(res);
+        robot.brain.set('tomatoStats', currentData);
+      }
+    )
+  }
+
+  new cron.CronJob({
+    cronTime: '00 00 * * * *', // checks once an hour
+    onTick: () => {
+      captureAndWriteStats();
+    },
+    start: true
+  });
+
+  robot.respond(/tomato capture/i, msg => {
+    captureAndWriteStats();
+  })
+
+  robot.respond(/tomato captureClear/i, msg => {
+    console.log('cleared stats')
+    robot.brain.set('tomatoStats', []);
+  })
+
+  robot.respond(/tomato captureGet/i, msg => {
+    console.log(robot.brain.get('tomatoStats'))
+  })
 
   robot.respond(/tomato last import/i, msg => {
     utils.requestGet(robot,
